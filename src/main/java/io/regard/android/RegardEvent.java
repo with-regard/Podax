@@ -18,11 +18,12 @@ public class RegardEvent {
         try {
             JSONObject obj = new JSONObject();
             obj.put("event-type", _type);
-            //TODO: put in the data map thing
-
             obj.put("time", System.currentTimeMillis());
             obj.put("user-id", userId);
             obj.put("session-id", sessionId);
+            if (_data != null) {
+                obj.put("data", new JSONObject(_data));
+            }
             return obj;
         } catch (JSONException ex) {
             throw new RuntimeException(ex);
