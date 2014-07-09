@@ -28,12 +28,4 @@ public class RegardEvent {
             throw new RuntimeException(ex);
         }
     }
-
-    public String getType() {
-        return _type;
-    }
-
-    public HashMap<String, String> getData() {
-        return _data;
-    }
 }
