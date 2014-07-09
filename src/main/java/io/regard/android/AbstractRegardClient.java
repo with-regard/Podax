@@ -12,7 +12,7 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import java.io.IOException;
 import java.util.UUID;
 
-public abstract class AbstractRegardClient implements RegardClient {
+abstract class AbstractRegardClient implements RegardClient {
     private static final String URL = "http://api.withregard.io/track/v1/%s/%s/event";
 
     private final String _product;
