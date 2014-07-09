@@ -1,6 +1,5 @@
 package io.regard.android;
 
-import android.content.Context;
 import android.os.AsyncTask;
 
 import org.apache.http.HttpResponse;
@@ -13,21 +12,18 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import java.io.IOException;
 import java.util.UUID;
 
-public class RegardClientImpl implements RegardClient {
+public abstract class AbstractRegardClient implements RegardClient {
     private static final String URL = "http://api.withregard.io/track/v1/%s/%s/event";
 
-    private final Context _context;
     private final String _product;
     private final String _organization;
     private final String _userId;
     private final String _sessionId;
 
-    public RegardClientImpl(Context _context, String organization, String product) {
-        this._context = _context;
+    public AbstractRegardClient(String userId, String organization, String product) {
         this._organization = organization;
         this._product = product;
-
-        this._userId = UUID.randomUUID().toString();
+        this._userId = userId;
         this._sessionId = UUID.randomUUID().toString();
     }
 
