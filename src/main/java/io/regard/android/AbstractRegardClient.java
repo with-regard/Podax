@@ -28,7 +28,7 @@ abstract class AbstractRegardClient implements RegardClient {
     }
 
     @Override
-    public void TrackEvent(RegardEvent event) {
+    public void trackEvent(RegardEvent event) {
         new Poster(new RegardListener() {
             @Override
             public void OnPosted(boolean success) {
