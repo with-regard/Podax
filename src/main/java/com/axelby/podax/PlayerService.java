@@ -20,6 +20,11 @@ import android.support.v4.app.NotificationCompat;
 import com.axelby.podax.PlayerStatus.PlayerStates;
 import com.axelby.podax.ui.MainActivity;
 
+import java.util.HashMap;
+
+import io.regard.android.AndroidRegardClient;
+import io.regard.android.RegardEvent;
+
 // this class handles connects the app to the player
 // it handles events on two sides - app and player
 // app events are handled in onStartCommand and are send to the player
@@ -160,9 +165,19 @@ public class PlayerService extends Service {
 			QueueManager.changeActivePodcast(PlayerService.this, status.getPodcastId());
 			_lockscreenManager.setupLockscreenControls(PlayerService.this, status);
 			showNotification();
+
+            postEvents(status);
 		}
 
-		@Override
+        private void postEvents(PlayerStatus status) {
+            HashMap<String, String> eventProperties = new HashMap<String, String>();
+            eventProperties.put("podcast.title", status.getTitle());
+
+            new AndroidRegardClient(PlayerService.this.getSharedPreferences("gpodder", Context.MODE_PRIVATE), "axelby", "podax")
+                    .trackEvent(new RegardEvent("player.change", eventProperties));
+        }
+
+        @Override
 		public void onSeek(float positionInSeconds) {
 			updateActivePodcastPosition(positionInSeconds);
 		}
