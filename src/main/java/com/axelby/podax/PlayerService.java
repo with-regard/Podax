@@ -22,8 +22,8 @@ import com.axelby.podax.ui.MainActivity;
 
 import java.util.HashMap;
 
-import io.regard.android.AndroidRegardClient;
-import io.regard.android.RegardEvent;
+import io.withregard.android.RegardClientFactory;
+import io.withregard.android.RegardEvent;
 
 // this class handles connects the app to the player
 // it handles events on two sides - app and player
@@ -173,8 +173,9 @@ public class PlayerService extends Service {
             HashMap<String, String> eventProperties = new HashMap<String, String>();
             eventProperties.put("podcast.title", status.getTitle());
 
-            new AndroidRegardClient(PlayerService.this.getSharedPreferences("gpodder", Context.MODE_PRIVATE), "axelby", "podax")
+            new RegardClientFactory().getClient(getSharedPreferences("gpodder", Context.MODE_PRIVATE), "axelby", "podax")
                     .trackEvent(new RegardEvent("player.change", eventProperties));
+
         }
 
         @Override
